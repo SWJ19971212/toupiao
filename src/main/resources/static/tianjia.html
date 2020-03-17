@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>添加新投票</title>
+		<link rel="stylesheet" type="text/css" href="css/tianjia.css"/>
+		<script type="text/javascript" src="js/utils.js"></script>
+		<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$(".sub-work").click(function(){
+					alert(1);
+					var fd = $("#myform").serialize();
+					var url = basePath+"toupiao/addSubject";
+					alert(fd);
+					$.post(url,fd,function(data){
+						alert(data);
+						if(data>0){
+							alert("新增成功")
+							window.location.href='main.html';
+						}else{
+							alert("新增失败")
+						}
+					},'json')
+				})
+				
+				$(".add-work").click(function(){
+					var count = document.getElementById("insert-items").getElementsByTagName("li").length;
+					if(count<5){
+						var ul = $("#insert-items");
+						var li = $("<li></li>");
+						var input = $("<input type='text' class='text' name='voOption'/>");
+						var a = $("<a class='del-item' href='javascript:void(0)'>删除</a>");
+						li.append(input);
+						li.append(a);
+						ul.append(li)
+					}else{
+						alert("无法新增选项")
+					}
+				})
+				
+			})
+			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+		<div id="main">
+			<!--logos-->
+			<div class="head">
+				<p><img src="img/logo.gif" alt="" /></p>
+			</div>
+			<!--导航栏-->
+			<div class="nav">
+				<table border="0" class="nav-table" cellspacing="0" cellpadding="0" width="100%">
+					<tr class="height-tr">
+						<td class="user">您好，www</td>  
+						<td><a class="back" href="javascript:;">返回列表</a></td>
+						<td><a class="insert" href="javascript:;">添加新投票</a></td>	
+						<td><a class="update" href="javascript:;">维护</a></td>
+						<td class="text-right">
+							<input type="text" name="" value="" class="mohuchaxun" />
+							<button class="soso">搜索</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="content">
+				<div class="insert-newVote">
+					<form action="javascript:void(0)" method="post" id="myform">
+						<p class="banner">添加新投票</p>
+						<table border="0" class="insert-newVote-table" cellspacing="0" cellpadding="0" width="100%">
+							<tr class="vote-neirong">
+								<td class="td-title">投票内容：</td>
+								<td colspan="2"><input class="input-neirong" type="text" name="" value="" /></td>
+							</tr>
+							<tr class="vote-type">
+								<td class="td-title">投票类型：</td>
+								<td colspan="2">
+									<input class="input-type" type="radio" name=""  value="" checked/>单选
+									<input class="input-type" type="radio" name=""  value="" />多选
+								</td>
+							</tr>
+							<tr class="vote-xuanxiang">
+								<td rowspan="2" class="td-title "><span class="move">投票选项：</span></td>
+								<td colspan="2">
+									<ul class="insert-items">
+										<li><input type="text" name=""  value="" /></li>
+										<li><input type="text" name=""  value="" /></li>
+										<li><input type="text" name=""  value="" placeholder=""/><a class="del-item" href="javascript:void(0)">删除</a></li>
+									</ul>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="work-box">
+									<input class="sub-work" type="image" src="img/button_submit.gif" />
+									<a class="add-work"  href="javascript:void(0)">增加选项</a>
+									<a class="del-work"  href="javascript:void(0)">取消操作</a>
+								</td>
+							</tr>
+						</table>
+					</form>
+				</div>
+			</div>
+			<div id="footer">
+				<p><hr /></p>
+				<p class="text-color"><span>北大青鸟&nbsp;&copy;&nbsp;版权所有</span></p>
+			</div>
+		</div>
+	</body>
+</html>

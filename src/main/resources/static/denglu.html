@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>登录</title>
+		<link rel="stylesheet" type="text/css" href="css/denglu.css"/>
+		<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+		<script type="text/javascript" src="js/utils.js"></script>
+		<script>
+			$(function(){
+				//alert(0);
+				$(".denglu-btn").click(function(){
+					//alert(1);
+					var ds=$("#myform").serialize();
+					var url=basePath+"toupiao/denglu";
+					alert(url);
+					//alert(0);
+					$.post(url,ds,function(data){
+						
+						//alert(ds);
+						alert(data);
+						if(data.vuUserId){
+							alert("登录成功。");
+							window.location.href='main.html';
+						}else{
+							alert("登陆失败");
+							window.location.reload(true);//刷新	
+						}
+					},'json')
+	});
+})
+			
+			
+		</script>
+	</head>
+	<body>
+		<div id="main">
+			<!--logos-->
+			<div class="head">
+				<p><img src="img/logo.gif" alt="" /></p>
+			</div>
+			<div id="content">
+				<div class="denglu-bg">
+					<div class="discrible">
+						<p class="discrible-title">北大青鸟</p>
+						<p class="discrible-text">网上调查系统...</p>
+					</div>
+					<div class="denglu-ptai">
+						<p class="denglu-title">用户登录</p>
+						<form action="javascript:;" method="post" id="myform">
+							<p class="height-pb">用户名：<input class="vuUserName" type="text" name="vuUserName" /></p>
+							<p class="height-pb">密&nbsp;&nbsp;&nbsp;&nbsp;码&nbsp;:&nbsp;<input class="vuPassword" type="password" name="vuPassword" /></p>
+							<p class="height-pc"><button class="denglu-btn">登录</button>&nbsp;<a href="zhuce.html">新用户注册</a></p>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div id="footer">
+				<p><hr /></p>
+				<p class="text-color"><span>北大青鸟&nbsp;&copy;&nbsp;版权所有</span></p>
+			</div>
+		</div>
+	</body>
+</html>

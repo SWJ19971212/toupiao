@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>参与投票单选</title>
+		<link rel="stylesheet" type="text/css" href="css/canyudanxuan.css"/>
+		<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+		<script type="text/javascript" src="js/utils.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				var fd = $(".myform tbody");
+					fd.empty();
+				var ds = getRequest();
+				var url = basePath+"toupiao/poll/"+ds.id;
+				$.post(url,function(data){
+var trtd1 = $("<tr><td colspan='2'></td></tr>");
+var p1 = $("<p class='height-pa'><a class='vote-items' href='#'>"+data.sub.vsTitle+"</a></p>");
+var p2 = $("<p class='height-pb'>共有<span>"+data.numSub+"</span>个选项，已有<span>"+data.numUser+"</span>个网友参与了投票</p>");
+						trtd1.append(p1);
+						trtd1.append(p2);
+						fd.append(trtd1);
+						$.each(data.list, function(i,n) {
+						if(data.sub.vsType==1){
+	var trtd2 = $("<tr><td colspan='2'></td></tr>");
+	var p3 = $("<p class='height-pb'><span class='oo'>"+(i+1)+"</span><input class='check-one'  type='radio' name='voOption' value='"+n.voOption+" '/>"+n.voOption+"</p>");
+	var p4 = $("<p class='height-pb' style='display: none;'><input class='check-one' id='void' type='text' name='voId' value='"+n.voId+"'/>"+n.voId+"</p>");
+							trtd2.append(p3);
+							trtd2.append(p4);
+							fd.append(trtd2);
+						}else{
+							var trtd2 = $("<tr><td colspan='2'></td></tr>");
+							var p3 = $("<p class='height-pb'><span class='oo'>"+(i+1)+"</span><input class='check-one'  type='checkbox' name='voOption' value='"+n.voOption+" '/>"+n.voOption+"</p>");
+							var p4 = $("<p class='height-pb' style='display: none;'><input class='check-one' id='void' type='text' name='voId' value='"+n.voId+" '/>"+n.voId+"</p>");
+							trtd2.append(p3);
+							trtd2.append(p4);
+							fd.append(trtd2);
+						}
+						
+					});
+					var tr3 = $("<tr></tr>");
+					var td1 =$("<td>&nbsp;</td>");
+					tr3.append(td1);
+					var td2 =$("<td></td>");
+					tr3.append(td2);
+					var a1 =$("<a href='javascript:touvote()' >投票</a>");
+					var a2 = $("<a href='lookVote.html?id="+data.sub.vsId+"'>查看</a>");
+					td2.append(a1);
+					td2.append(a2);
+					fd.append(tr3);
+				},'json')
+			})
+			
+			//投票
+				function touvote(){
+                	var ds = getRequest();
+            		var ff = $(".myform").serialize();
+            			var url = basePath+"toupiao/toupiao/"+ds.id;
+            			alert(url)
+	             		 $.post(url,ff,function(data){
+	             		 	if(data>0){
+	             		 		alert("投票成功");
+	             		 		window.location.href='main.html';
+	             		 	}else{
+	             		 		alert("投票失败");
+	             		 	}
+	             		 	
+	             		 },'json')
+            		
+            		
+				}
+		</script>
+	</head>
+	<body>
+		<div id="main">
+			<!--logos-->
+			<div class="head">
+				<p><img src="img/logo.gif" alt="" /></p>
+			</div>
+			<!--导航栏-->
+			<div class="nav">
+				<table border="0" class="nav-table" cellspacing="0" cellpadding="0" width="100%">
+					<tr class="height-tr">
+						<td class="user">您好，www</td>
+						<td><a class="back" href="main.html">返回列表</a></td>
+						<td><a class="insert" href="javascript:;">添加新投票</a></td>	
+						<td><a class="update" href="javascript:;">维护</a></td>
+						<td class="text-right">
+							<input type="text" name="" value="" class="mohuchaxun" />
+							<button class="soso">搜索</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="content">
+				<div>
+					<p class="vote-liebiao">参与投票</p>
+					<div class="canyu">
+						<form action="javascript:void(0)" class="myform">
+							<table class="table" border="0" cellspacing="0" cellpadding="0" width="100%">
+								<tbody>
+									
+									
+								</tbody>
+							</table>
+							
+								
+							
+						</form>
+						
+					</div>
+				</div>
+			</div>
+			<div id="footer">
+				<p><hr /></p>
+				<p class="text-color"><span>北大青鸟&nbsp;&copy;&nbsp;版权所有</span></p>
+			</div>
+		</div>
+	</body>
+</html>

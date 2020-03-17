@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>维护单对象投票</title>
+		<link rel="stylesheet" type="text/css" href="css/weihuOne.css"/>
+	</head>
+	<body>
+		<div id="main">
+			<!--logos-->
+			<div class="head">
+				<p><img src="img/logo.gif" alt="" /></p>
+			</div>
+			<!--导航栏-->
+			<div class="nav">
+				<table border="0" class="nav-table" cellspacing="0" cellpadding="0" width="100%">
+					<tr class="height-tr">
+						<td class="user">您好，www</td>
+						<td><a class="back" href="javascript:;">返回列表</a></td>
+						<td><a class="insert" href="javascript:;">添加新投票</a></td>	
+						<td><a class="update" href="javascript:;">维护</a></td>
+						<td class="text-right">
+							<input type="text" name="" value="" class="mohuchaxun" />
+							<button class="soso">搜索</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="content">
+				<div class="insert-newVote">
+					<form action="javascript:void(0)" method="post" id="myform">
+						<p class="banner">维护</p>
+						<table border="0" class="insert-newVote-table" cellspacing="0" cellpadding="0" width="100%">
+							<tr class="vote-neirong">
+								<td class="td-title">投票内容：</td>
+								<td colspan="2"><input class="input-neirong" type="text" name="" value="" placeholder="选出你心目中最好的下载工具"/></td>
+							</tr>
+							<tr class="vote-type">
+								<td class="td-title">投票类型：</td>
+								<td colspan="2">
+									<input class="input-type" type="radio" name=""  value="" checked/>单选
+									<input class="input-type" type="radio" name=""  value="" />多选
+								</td>
+							</tr>
+							<tr class="vote-xuanxiang">
+								<td rowspan="2" class="td-title "><span class="move">投票选项：</span></td>
+								<td colspan="2">
+									<ul class="insert-items">
+										<li><input type="text" name=""  value="" placeholder="迅雷"/></li>
+										<li><input type="text" name=""  value="" placeholder="迅雷"/></li>
+										<li><input type="text" name=""  value="" placeholder=""/><a class="del-item" href="javascript:void(0)">删除</a></li>
+									</ul>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="work-box">
+									<input class="sub-work" type="image" src="img/button_submit.gif" />
+									<a class="add-work"  href="javascript:void(0)">增加选项</a>
+									<a class="del-work"  href="javascript:void(0)">取消操作</a>
+								</td>
+							</tr>
+						</table>
+					</form>
+				</div>
+			</div>
+			<div id="footer">
+				<p><hr /></p>
+				<p class="text-color"><span>北大青鸟&nbsp;&copy;&nbsp;版权所有</span></p>
+			</div>
+		</div>
+	</body>
+</html>

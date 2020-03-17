@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>注册</title>
+		<link rel="stylesheet" type="text/css" href="css/register.css"/>
+		<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+		<script type="text/javascript" src="js/utils.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				//注册
+				$(".bom").click(register);
+				//名字聚焦
+				focusName();
+				//姓名确定唯一性
+				$("[name='vuUserName']").blur(blurName);
+				$("[name='vuPassword']").blur(blurpwd);
+				$("[name='rvuPassword']").blur(blurrepwd);
+				
+				//提交按钮的点击
+	        	$(".bom").click(function(){
+	        		 return checksubmit();
+	        	})
+	        	
+	        	
+	        	//表单的提交
+	        	$('#loginform').submit(function(){
+	        		
+	        	})
+					
+			})
+			
+			//注册
+			function register(){
+				var fd = $("#loginform").serialize();
+					var url = basePath+"toupiao/zhuce";
+					alert(fd)
+					$.post(url,fd,function(data){
+						alert(data)
+						if(data>0){
+							alert("注册成功")
+							window.location.href="denglu.html";
+						}else{
+							alert("注册失败")
+							window.location.href="zhuce.html";
+							window.location.reload(true);
+						}
+					},'json')
+			}
+			
+			function focusName(){
+				var name = $("[name='vuUserName']")[0];
+					name.focus();
+			}
+			//确认姓名唯一性
+			function blurName(){
+				var name = $(this).val();
+					name=$.trim(name);
+				var span = $(this).next();
+				if(name==""){
+					span.html("姓名不能为空");
+				}else{
+					var url = basePath + "myvote/registerName/"+name;
+					$.post(url,function(data){
+						if(data.vuUserId){
+							span.html("该用户名已注册");
+						}else{
+							span.html("");
+						}
+					},'json')
+				}
+			}
+			
+			//密码填写
+			function blurpwd(){
+				var pwd = $(this).val();
+					pwd=$.trim(pwd);
+					
+				var span = $(this).next();
+				if(pwd==""){
+					span.html("密码不能为空");
+				}else{
+					span.html("");
+				}
+			}
+			
+			//密码确认
+			function blurrepwd(){
+				var repwd = $(this).val();
+					repwd=$.trim(repwd);
+				var pwd = $("[name='vuPassword']").val();
+					pwd=$.trim(pwd);
+				var span = $(this).next();	
+				if(repwd!=pwd){
+					span.html("密码不一致，请重新输入");
+				}else{
+					span.html("");
+				}
+			}
+		</script>
+			
+		
+	</head>
+	<body>
+		<div id="main">
+			<div class="top">
+				<img src="images/logo.gif"/>
+			</div>
+			<div class="content">
+				<div class="content-1">
+					<div class="list">
+							用户注册
+					</div>
+					<div class="clear"></div>
+					<form id="loginform" action="javacript:void(0)">
+						<table >
+							<tr style="display: none;">
+								<td>用户ID</td>
+								<td>
+									<input type="text"  size="36" class="text"/><span style="color: red;"></span><em style="font-size: 12px;">（*必填）</em>
+								</td>
+							</tr>
+							<tr>
+								<td>用户名:</td>
+								<td>
+									<input type="text"  size="36" name="vuUserName" class="text"/><span style="color: red;"></span><em style="font-size: 12px;">（*必填）</em>
+								</td>
+							</tr>
+							<tr>
+								<td>密&nbsp;码:</td>
+								<td>
+									<input type="password"  size="36" name="vuPassword" class="text"/><span style="color: red;"></span><em style="font-size: 12px;">（*必填）</em>
+								</td>
+							</tr>
+							<tr>
+								<td>确认密码:</td>
+								<td>
+									<input type="password"  size="36" name="rvuPassword" class="text"/><span style="color: red;"></span><em style="font-size: 12px;">（*必填）</em>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>&nbsp;</td>
+								<td class="but">
+									<input type="button" class="bom" value="注册" />
+								</td>
+							</tr>
+						</table>
+					</form>
+				</div>
+			</div>
+			<div class="foot">
+				北大青鸟&copy;版权所有
+			</div>
+		</div>
+		
+	</body>
+</html>

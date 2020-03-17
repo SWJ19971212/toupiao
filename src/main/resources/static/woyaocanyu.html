@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>管理页面</title>
+		<link rel="stylesheet" type="text/css" href="css/select-vote.css"/>
+		<link rel="stylesheet" type="text/css" href="css/mian.css"/>
+		<script type="text/javascript" src="js/utils.js"></script>
+		<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				//alert(0)
+				
+				var ds = getRequest();
+				//alert(ds);
+				var node = $(".vote");
+					node.empty();
+				var url = basePath + "toupiao/allSubject";
+				$.post(url,function(data1){
+					//alert(data.list);
+					//alert(data1);
+					$(".user").html("你好，"+ds.name);
+					$.each(data1.list, function(i,n) {
+						var url1 = basePath +"toupiao/count/"+n.vsId;
+						$.post(url1,function(data){
+							//alert(data)
+							//alert(data.numSub);
+							//alert(data.numUser);
+							var p1 = $("<p class='question'>"+n.vsTitle+"</p>");
+							var p2 =$("<p class='show'></p>");
+							var span1 = $("<span class='span1'>公有 "+data.numSub+"个选项，已有  "+data.numUser+"人参与投票</span>");
+							var span2 = $("<span class='span2'><a href='vote.html?id="+n.vsId+"'>我要参与</a></span>")
+							node.append(p1);
+							p2.append(span1);
+							p2.append(span2);
+							node.append(p2);
+						},'json')
+						
+					});
+					//alert(data.u.vuStatus);
+					if(data.u.vuStatus==1){
+					var li = $(".disab1");
+							li.empty();
+						li.html("添加新投票");
+						var li1 = $(".disab2");
+							li1.empty();
+						li1.html("维护");
+					}
+				},'json')
+				//注销
+				$(".zhuxiao").click(function(){
+					if(confirm("是否注销？")){
+						var url = basePath+"toupiao/cancel";
+						$.post(url,function(data){
+							alert(0)
+							if(data>0){
+								alert("注销失败")
+							}else{
+								alert("注销成功")
+								window.location.href='login.html';
+							}
+						},'json')
+					}
+				})
+				
+			})
+			
+			
+		</script>
+	</head>
+	<body>
+		<div id="main">
+			<div class="top">
+				<img src="images/logo.gif"/>
+			</div>
+			<div class="top-list">
+				<ul>
+					<li class="user"></li>
+					<li class="zhuxiao"><a href="javascript:void(0)">注销</a></li>
+					<li><a href="">回列表</a></li>
+					<li class="disab1"><a href="addVote.html">添加新投票</a></li>
+					<li class="disab2"><a href="updateMain.html">维护</a></li>
+					<li class="sousuo"><input type="text" \>搜索</li>
+				</ul>
+			</div>
+			<h2 class="h2"><img src="images/title_ico.gif"/> 投票列表</h2>
+			<div class="vote">
+				<p class="question">选出你最喜欢的浏览器</p>
+				<p class="show">
+					<span class="span1">公有多少个选项，已有多少人参与投票</span>
+					<span class="span2"><a href="">我要参与</a></span>
+				</p>
+			</div>
+			<div class="footer">
+				北大青鸟&copy;版权所有
+			</div>
+		</div>
+	</body>
+</html>

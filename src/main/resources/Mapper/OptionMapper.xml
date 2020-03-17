@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.IOption" >
+  <resultMap id="BaseResultMap" type="com.entity.Option" >
+    <id column="vo_id" property="voId" jdbcType="INTEGER" />
+    <result column="vs_id" property="vsId" jdbcType="INTEGER" />
+    <result column="vo_option" property="voOption" jdbcType="VARCHAR" />
+    <result column="vo_order" property="voOrder" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    vo_id, vs_id, vo_option, vo_order
+  </sql>
+
+  <select id="selectByVsId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT * FROM vote_option o
+    WHERE o.vs_id = #{vsId}
+  </select>
+  <select id="selectByOp" resultType="com.entity.Option">
+    SELECT * FROM vote_option o WHERE o.vo_option = #{voOption} and o.vs_id = #{vsId}
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from vote_option
+    where vo_id = #{voId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from vote_option
+    where vo_id = #{voId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.Option" useGeneratedKeys="true" keyProperty="voId" >
+    insert into vote_option (vo_id, vs_id, vo_option,
+    vo_order)
+    values (#{voId,jdbcType=INTEGER}, #{vsId,jdbcType=INTEGER}, #{voOption,jdbcType=VARCHAR},
+    #{voOrder,jdbcType=INTEGER})
+  </insert>
+
+
+  <update id="updateByPrimaryKey" parameterType="com.entity.Option" >
+    update vote_option
+    set vs_id = #{vsId,jdbcType=INTEGER},
+    vo_option = #{voOption,jdbcType=VARCHAR},
+    vo_order = #{voOrder,jdbcType=INTEGER}
+    where vo_id = #{voId,jdbcType=INTEGER}
+  </update>
+
+</mapper>
